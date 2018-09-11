@@ -4,13 +4,12 @@
 	<title>Account creation</title>
 </head>
 <body>
-<?php
-    echo form_open('User_model/insert_entry');
-    echo "E-mail : ".form_input('use_mail');
-    echo "Name : ".form_input('use_name');
-    echo "Surname : ".form_input('use_surname');
-    echo form_submit('submit','Register');
-?>
-
+    <form name="newuser" action="insert_user" method="post">
+    <p> E-mail : <input type="email" name="use_mail"> </p>
+    <p> Password : <input type="password" name="use_pass"> </p>
+    <p> Name : <input type="text" name="use_name"> </p>
+    <p> Surname : <input type="text" name="use_surname"></p>
+    <p> <input type="submit" name="submit" value="Register"> </p>
+    </form>
 </body>
 </html>
