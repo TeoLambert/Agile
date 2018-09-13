@@ -55,4 +55,12 @@ class Registration extends CI_Controller {
         unset($_SESSION);
         $this->load->view("header");
     }
+
+    public function acc_management()
+    {
+        $this->load->model('User_model');
+        
+        $this->load->view('header');
+        $this->load->view('account_management');
+    }
 }

@@ -1,4 +1,4 @@
-<body>
+
     <form name="login" action="user_haslogged" method="post">
         <label for="use_mail">E-mail : </label>
         <input type="text" name="use_mail">
