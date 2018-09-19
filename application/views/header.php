@@ -11,7 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php
         if(isset($_SESSION["user_connected"]))
         {
-            echo "Welcome " . $_SESSION["user_connected"]->use_surname." ". $_SESSION["user_connected"]->use_name;
+            $user = unserialize($_SESSION["user_connected"]);
+            echo "Welcome " . $user->use_surname." ". $user->use_name;
+         //   echo "\n <div id=\"acc_management\"><a href=".base_url()."Registration/acc_management>Account Management</a></div>";
+             echo "\n <div id=\"projects\"><a href=".base_url()."Project/index>My projects</a></div>";
             echo "\n <div id=\"log_out\"><a href=".base_url()."Registration/logout>Logout</a></div>";
         }
         else

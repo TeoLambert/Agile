@@ -29,7 +29,7 @@ class Registration extends CI_Controller {
             $user->use_mail = $query->use_mail;
             $user->use_name = $query->use_name;
             $user->use_surname = $query->use_surname;
-            $_SESSION["user_connected"] = $user;
+            $_SESSION["user_connected"] = serialize($user);
             $this->load->view('header');
         }
         else
@@ -59,8 +59,43 @@ class Registration extends CI_Controller {
     public function acc_management()
     {
         $this->load->model('User_model');
-        
+        $user = new User_model();
         $this->load->view('header');
-        $this->load->view('account_management');
+        if(isset($_SESSION["user_connected"])) {
+            $data  = array("user" => unserialize($_SESSION["user_connected"]));
+            $this->load->view('account_management',$data);
+        }
+        else
+            $this->load->view('errors/cli/must_be_connected');
     }
-}
+
+    public function account_update()
+    {
+        $this->load->model('User_model');
+        $data = $this->input->post();
+        $basemail = unserialize($_SESSION["user_connected"])->use_mail;
+        $user = array(
+            "use_mail" => $data["use_mail"],
+            "use_name"=> $data["use_name"],
+            "use_surname" =>$data["use_surname"]
+        );
+        if($basemail !== $data["use_mail"]){
+            $isFree = $this->db->simple_query("select 1 from user where use_mail='".$data["use_mail"]."';");
+            if($isFree->num_rows === 0) {
+                $this->db->update('user', $user, array('use_mail' => $basemail));
+                $_SESSION["user_connected"] = serialize($user);
+                $this->load->view('header');
+            }
+            else
+            {
+                $this->acc_management();
+                $this->load->view("errors/cli/email_used");
+            }
+        }
+        else {
+            $this->db->update('user', array_shift($user), array('use_mail' => $basemail));
+            $this->load->view('header');
+        }
+       
+    }
+}   
