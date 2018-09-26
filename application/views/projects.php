@@ -6,7 +6,7 @@ foreach($projects as $project)
     <div class='project'>
         <input type="hidden" name="pro_id" value="<?=$project->pro_id?>">
         <div class="pro_name">
-           <h4> <?= $project->pro_name?> </h4>
+           <h4> <a href="<?=base_url()?>Project/detailled_project/<?=$project->pro_id?>"><?= $project->pro_name?> </a></h4>
         </div>
         <div class="pro_deadline">
             Deadline : <?= $project->pro_deadline?>

@@ -12,9 +12,20 @@ class Registration extends CI_Controller {
         $user->use_pass = md5($data["use_pass"]);
         $user->use_name =  $data["use_name"];
         $user->use_surname = $data["use_surname"];
-        $this->db->insert('user',$user);
-        $this->load->view('header');
-        $this->load->view('registration_success');
+        $isUser = $this->db->simple_query("select 'X' from user where use_mail='".$user->use_mail."';"); 
+        if($isUser->num_rows == 0)
+        {
+            $this->db->insert('user',$user);
+            unset($_SESSION);
+            $this->load->view('header');
+            $this->load->view('registration_success');
+        }
+        else
+        {
+            $this->account_creation();
+            $this->load->view('errors/cli/email_used');
+        }
+        
     }
 
 
@@ -42,11 +53,15 @@ class Registration extends CI_Controller {
 
     public function user_login()
     {
+        unset($_SESSION);
+        $this->load->view('header');
         $this->load->view('login');
     }
 
     public function account_creation()
     {
+        unset($_SESSION);
+        $this->load->view('header');
         $this->load->view('account_creation');
     }
 
