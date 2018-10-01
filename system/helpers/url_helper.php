@@ -88,6 +88,11 @@ if ( ! function_exists('base_url'))
 	}
 }
 
+if ( ! function_exists('base_folder')){
+	function base_folder(){
+		return str_replace("/index.php", "", base_url());
+	}
+}
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('current_url'))

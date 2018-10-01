@@ -16,7 +16,7 @@ class Registration extends CI_Controller {
         if($isUser->num_rows == 0)
         {
             $this->db->insert('user',$user);
-            unset($_SESSION);
+            $this->session->sess_destroy();
             $this->load->view('header');
             $this->load->view('registration_success');
         }
@@ -53,22 +53,22 @@ class Registration extends CI_Controller {
 
     public function user_login()
     {
-        unset($_SESSION);
+        $this->session->sess_destroy();
         $this->load->view('header');
         $this->load->view('login');
     }
 
     public function account_creation()
     {
-        unset($_SESSION);
+        $this->session->sess_destroy();
         $this->load->view('header');
         $this->load->view('account_creation');
     }
 
     public function logout()
     {
-        unset($_SESSION);
-        $this->load->view("header");
+        $this->session->sess_destroy();
+        $this->load->view('header');
     }
 
     public function acc_management()

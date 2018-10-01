@@ -18,6 +18,19 @@
     </div>
     <div class="tasks">
     <h3>Tasks : </h3>  
+    <?php foreach($tasks as $task) { ?>
+        <div class="task_container">
+            <div class="tas_name">
+                Task name : <?= $task->tas_name ?>
+            </div>
+            <div class="tas_deadline">
+                Deadline : <?= $task->tas_deadline ?>
+            </div>
+            <div class="tas_desc">
+                Description : <?= $task->tas_desc ?>
+            </div>
+        </div>
+    <?php } ?>
     </div>
 </div>
 <div id="workers">

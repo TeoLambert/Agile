@@ -1,34 +1,52 @@
 <h2> My projects </h2>
+<div class="container">
+
+
 <?php 
 foreach($projects as $project)
 {
     ?>
-    <div class='project'>
-        <input type="hidden" name="pro_id" value="<?=$project->pro_id?>">
-        <div class="pro_name">
-           <h4> <a href="<?=base_url()?>Project/detailled_project/<?=$project->pro_id?>"><?= $project->pro_name?> </a></h4>
-        </div>
-        <div class="pro_deadline">
-            Deadline : <?= $project->pro_deadline?>
-        </div>
-        <div class="pro_customer">
-            Customer : <?=$project->pro_customer?>
-        </div>
-        <div class="pro_customer_tel">
-            Customer phone : <?=$project->pro_customer_tel?>
-        </div>
-        <div class="pro_customer_mail">
-            Customer mail : <?=$project->pro_customer_mail?>
-        </div>
-        <div class="pro_desc">
-            Project description : <?=$project->pro_desc?>
-        </div>
-        <div class="pro_owner">
-            Project owner : <?=$project->use_mail?>
-        </div>
+    <div class="project">  
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><h4> <a href="<?=base_url()?>Project/detailled_project/<?=$project->pro_id?>"><?= $project->pro_name?> </a></h4></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Deadline</th>
+                    <td><?= $project->pro_deadline?></td>
+                </tr>
+                <tr>
+                    <th>Customer</th>
+                    <td><?=$project->pro_customer?></td>
+                </tr>
+                <tr>
+                    <th>Customer phone</th>
+                    <td><?=$project->pro_customer_tel?></td>
+                </tr>
+                <tr>
+                    <th>Customer mail</th>
+                    <td><?=$project->pro_customer_mail?></td>
+                </tr>
+                <tr>
+                    <th>Project description</th>
+                    <td><?=$project->pro_desc?></td>
+                </tr>
+                <tr>
+                    <th>Project owner</th>
+                    <td><?=$project->use_mail?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <?php 
 } ?>
 
-<div id="new_project">
-    <a href="<?=base_url()?>/Project/new_project">Create a new project</a>
+
+    <div id="new_project">
+        <a href="<?=base_url()?>/Project/new_project"><button class="btn btn-primary">Create a new project</button></a>
+    </div>
 </div>

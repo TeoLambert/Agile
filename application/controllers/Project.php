@@ -58,6 +58,10 @@ class Project extends CI_Controller {
         foreach($query_workers->result('User_model') as $user)
             $workers[] = $user;
         $data["workers"] = $workers; 
+        $query_tasks = $this->db->query('select * from task where pro_id='.$id.';');
+        foreach($query_tasks->result('Task_model') as $task)
+            $tasks[] = $task;
+        $data["tasks"] = $tasks;
         $this->load->view('header');
         $this->load->view('detailled_view',$data);
     }
@@ -98,8 +102,15 @@ class Project extends CI_Controller {
         $task->tas_desc = $data["tas_desc"];
         $task->pro_id = $data["pro_id"];
         $this->db->insert('task',$task);
-        return $this->detailled_project($data["pro_id"]);
+        $this->index();
 
+    }
+
+    public function add_requirement($id) 
+    {
+        $data["task"] = $this->getTask($id);
+        $this->load->view('header');
+        $this->load->view('add_requirement',$data);
     }
 
     private function getProject($id)
@@ -116,5 +127,17 @@ class Project extends CI_Controller {
         $project->pro_desc = $query->pro_desc;
         $project->use_mail = $query->use_mail;
         return $project;
+    }
+
+    private function getTask($id)
+    {
+        $query = $this->db->query('select * from task where tas_id='.$id.";")->row();
+        $task = new Task_model();
+        $task->tas_id = $query->tas_id;
+        $task->tas_name = $query->tas_name;
+        $task->tas_desc = $query->tas_desc;
+        $task->pro_id = $query->pro_id;
+        return $task;
+
     }
 }
