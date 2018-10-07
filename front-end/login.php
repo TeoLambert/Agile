@@ -45,9 +45,6 @@
             </div>
         </div>
     </div>
-    <script>
-        
-    </script>
     <script src="js/bootstrap.js"> </script>
 </body>
 </html>
