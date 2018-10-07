@@ -13,18 +13,18 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-lg-6">
-                                    <input type="text" name="" class="form-control" placeholder=" First name">
+                                    <input type="text" name="use_name" class="form-control" placeholder=" First name">
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="" class="form-control" placeholder=" Last Name">
+                                    <input type="text" name="use_surname" class="form-control" placeholder=" Last Name">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="" class="form-control" placeholder="E-mail Address">
+                            <input type="email" name="use_mail" class="form-control" placeholder="E-mail Address">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="" class="form-control" placeholder="Password">
+                            <input type="password" name="use_pass" class="form-control" placeholder="Password">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-outline-success btn-block"> REGISTER </button>
