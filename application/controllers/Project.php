@@ -64,6 +64,7 @@ class Project extends CI_Controller {
             $tasks[] = $task;
         $data["tasks"] = $tasks;
         $this->load->view('header');
+        $this->load->view('side_bar');
         $this->load->view('detailled_view',$data);
     }
 
