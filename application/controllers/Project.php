@@ -11,7 +11,7 @@ class Project extends CI_Controller {
         
     }
 
-    public function index($insert_id)
+    public function index(/*$insert_id*/)
     {
         $mail = unserialize($_SESSION["user_connected"])->use_mail;
         $projects = array();
@@ -22,12 +22,13 @@ class Project extends CI_Controller {
         $data["projects"] = $projects;
         $this->load->view('header',$data);
         $this->load->view('side_bar');
-        $this->load->view('projects',$insert_id);
+    $this->load->view('projects'/*,$insert_id*/);
     }
 
     public function new_project()
     {
         $this->load->view('header');
+        $this->load->view('side_bar');
         $this->load->view('new_project');
     }
 
@@ -48,7 +49,9 @@ class Project extends CI_Controller {
                         "use_mail" => unserialize($_SESSION["user_connected"])->use_mail
     );
         $this->db->insert("belong_to",$belong);
-        $this->index($insert_id);
+        // check if it is right
+        /*$data = $insert_id;*/
+        $this->index(/*$data*/);
     }
 
     public function detailled_project($id)
