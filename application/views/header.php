@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </style>
     <script src="<?=asset('js/jquery.min.js')?>"> </script>
     <script src="<?=asset('js/bootstrap.js')?>"> </script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <header>
 <nav class="navbar navbar-expand-lg bg-success navbar-dark">
@@ -32,9 +33,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 if(isset($_SESSION["user_connected"]))
                 {?>
                     <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     project 1
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#"> project 2 </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="index.html"> Create project </a>
+                                </div>
+                            </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                            
+                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="dropdownMenunotify" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-bell"></i> <sup> <span class="badge badge-danger"> 5 </span> </sup>
+                                    <i class="fas fa-bell"></i>  <sup> <span class="badge badge-danger"> 5 </span> </sup>
+                                    <!-- TODO: fix the icon bug-->
                                 </a>
                                         
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenunotify">
@@ -45,6 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <a class="dropdown-item" href="#"> Notification three </a>
                                 </div>
                             </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-user"></i> Teo Lambert
@@ -52,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="#"> User Profile </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="index.html"> Logout </a>
+                                    <a class="dropdown-item" href="<?=base_url()?>Registration/logout"> Logout </a>
                                 </div>
                             </li>
                         </ul>
@@ -62,9 +79,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 else
                 { ?>
                 <!-- TODO: modify the create account and login btn-->
-                            <a class="btn btn-outline-success" href="<?=base_url()?>Registration/account_creation"> Create an account </a>
-                            <span> &nbsp; &nbsp; &nbsp; &nbsp; </span>
-                            <a class="btn btn-outline-success" href="<?=base_url()?>Registration/user_login"> Login </a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-item">
+                        <a class="nav-link" href="<?=base_url()?>Registration/account_creation"> Create an account </a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="<?=base_url()?>Registration/user_login"> Login </a>
+                    </li>
+                </ul>
             <?php } ?>
             </div>
         </div>
