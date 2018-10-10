@@ -151,29 +151,39 @@ class Project extends CI_Controller {
 
     private function getProjectWorker($pro_id)
     {
-        $query = $this->db->query("select u.* from user u join work w on u.use_mail = w.use_mail where w.pro_id = '".$pro_id."';");
-        $project_worker = new User_model();
-        $task->use_mail = $query->use_mail;
-        $task->use_name = $query->use_name;
-        $task->use_surname = $query->use_surname;
-        $task->use_pass = '';
-        return $project_worker;
-
+        
+        $query_workers = $this->db->query("select u.use_mail, use_name, use_surname from user u
+                                            join belong_to b on u.use_mail = b.use_mail where b.pro_id = ".$pro_id.";");
+        foreach($query_workers->result('User_model') as $user)
+            $workers[] = $user;
+        return $workers;
     }
 
-    private function getRequirement($id){
+    private function getProjectTask($pro_id)
+    {
+        $query_tasks = $this->db->query('select * from task where pro_id='.$id.';');
+        foreach($query_tasks->result('Task_model') as $task)
+            $tasks[] = $task;
+        return $tasks;
+    }
+
+
+    private function getProjectRequirement($id){
 
     }
 
     private function show_req($id){
-
+        $data["requirement"] = $this->getProjectRequirement($pro_id);
+        $this->load->view('show_req',$data);
     }
 
-    private function show_task($id){
-        $data["task"] = $this->getTask($id);
+    private function show_task($pro_id){
+        $data["task"] = $this->getProjectTask($pro_id);
+        $this->load->view('show_task',$data);
     }
 
-    private function show_worker($id){
-        $data["worker"] = $this->getWorker($id);
+    private function show_worker($pro_id){
+        $data["worker"] = $this->getProjectWorker($pro_id);
+        $this->load->view('show_worker',$data);
     }
 }
