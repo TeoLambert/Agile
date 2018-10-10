@@ -8,7 +8,7 @@ class Project extends CI_Controller {
         parent::__construct();
         $this->load->model('Project_model');
         $this->load->model('Task_model');
-        
+        $this->load->model('Requirement_model');
     }
 
     public function index($insert_id)
@@ -69,6 +69,7 @@ class Project extends CI_Controller {
         foreach($query_tasks->result('Task_model') as $task)
             $tasks[] = $task;
         $data["tasks"] = $tasks;
+
         $this->load->view('header');
         $this->load->view('side_bar');
         $this->load->view('detailled_view',$data);
@@ -137,6 +138,7 @@ class Project extends CI_Controller {
         return $project;
     }
 
+    // TODO: remain update according to the new DB
     private function getTask($id)
     {
         $query = $this->db->query('select * from task where tas_id='.$id.";")->row();
@@ -161,15 +163,18 @@ class Project extends CI_Controller {
 
     private function getProjectTask($pro_id)
     {
-        $query_tasks = $this->db->query('select * from task where pro_id='.$id.';');
+        $query_tasks = $this->db->query('select * from task where pro_id='.$pro_id.';');
         foreach($query_tasks->result('Task_model') as $task)
             $tasks[] = $task;
         return $tasks;
     }
 
 
-    private function getProjectRequirement($id){
-
+    private function getProjectRequirement($pro_id){
+        $query_reqs = $this->db->query('select * from requirement where pro_id='.$pro_id.';');
+        foreach($query_reqs->result('Requirement_model') as $req)
+            $reqs[] = $req;
+        return $reqs;
     }
 
     private function show_req($id){
