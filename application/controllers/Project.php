@@ -176,19 +176,4 @@ class Project extends CI_Controller {
             $reqs[] = $req;
         return $reqs;
     }
-
-    private function show_req($id){
-        $data["requirement"] = $this->getProjectRequirement($pro_id);
-        $this->load->view('show_req',$data);
-    }
-
-    private function show_task($pro_id){
-        $data["task"] = $this->getProjectTask($pro_id);
-        $this->load->view('show_task',$data);
-    }
-
-    private function show_worker($pro_id){
-        $data["worker"] = $this->getProjectWorker($pro_id);
-        $this->load->view('show_worker',$data);
-    }
 }
