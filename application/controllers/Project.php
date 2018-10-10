@@ -14,17 +14,20 @@ class Project extends CI_Controller {
     public function index($insert_id)
     {
         $mail = unserialize($_SESSION["user_connected"])->use_mail;
-        $projects = array();
+        $name_and_id = array();
         $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."';");
-        // TODO: query the specific project using $insert_id
-        /*foreach($query->result("Project_model") as $project)
-            $projects[] = $project;
-        $projects_name["projects"] = $projects; */
-        $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."' and p.pro_id = '".$insert_id."';");
-        $data["project"] = $query->result("Project_model");
-        $this->load->view('header'/*,$projects_name*/);
+        
+        foreach($query->result("Project_model") as $project){
+            $name_and_id["pro_name"] = $project->pro_name;
+            $name_and_id["pro_id"] = $project->pro_id;
+        }
+        $data["projects"] = $name_and_id;
+        $this->load->view('header',$data);
         $this->load->view('side_bar');
-        $this->load->view('projects',$data);
+
+        $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."' and p.pro_id = '".$insert_id."';");
+        $spec_proj["project"] = $query->result("Project_model");
+        $this->load->view('projects',$spec_proj);
     }
 
     public function new_project()
@@ -144,5 +147,33 @@ class Project extends CI_Controller {
         $task->pro_id = $query->pro_id;
         return $task;
 
+    }
+
+    private function getProjectWorker($pro_id)
+    {
+        $query = $this->db->query("select u.* from user u join work w on u.use_mail = w.use_mail where w.pro_id = '".$pro_id."';");
+        $project_worker = new User_model();
+        $task->use_mail = $query->use_mail;
+        $task->use_name = $query->use_name;
+        $task->use_surname = $query->use_surname;
+        $task->use_pass = '';
+        return $project_worker;
+
+    }
+
+    private function getRequirement($id){
+
+    }
+
+    private function show_req($id){
+
+    }
+
+    private function show_task($id){
+        $data["task"] = $this->getTask($id);
+    }
+
+    private function show_worker($id){
+        $data["worker"] = $this->getWorker($id);
     }
 }
