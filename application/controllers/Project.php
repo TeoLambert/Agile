@@ -11,18 +11,20 @@ class Project extends CI_Controller {
         
     }
 
-    public function index(/*$insert_id*/)
+    public function index($insert_id)
     {
         $mail = unserialize($_SESSION["user_connected"])->use_mail;
         $projects = array();
         $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."';");
         // TODO: query the specific project using $insert_id
-        foreach($query->result("Project_model") as $project)
+        /*foreach($query->result("Project_model") as $project)
             $projects[] = $project;
-        $data["projects"] = $projects;
-        $this->load->view('header',$data);
+        $projects_name["projects"] = $projects; */
+        $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."' and p.pro_id = '".$insert_id."';");
+        $data["project"] = $query->result("Project_model");
+        $this->load->view('header'/*,$projects_name*/);
         $this->load->view('side_bar');
-    $this->load->view('projects'/*,$insert_id*/);
+        $this->load->view('projects',$data);
     }
 
     public function new_project()
@@ -49,9 +51,7 @@ class Project extends CI_Controller {
                         "use_mail" => unserialize($_SESSION["user_connected"])->use_mail
     );
         $this->db->insert("belong_to",$belong);
-        // check if it is right
-        /*$data = $insert_id;*/
-        $this->index(/*$data*/);
+        $this->index($insert_id);
     }
 
     public function detailled_project($id)
