@@ -23,6 +23,7 @@ class Project extends CI_Controller {
         }
         $data["projects"] = $name_and_id;
         $this->load->view('header',$data);
+        $id["pro_id"] = $insert_id;
         $this->load->view('side_bar');
 
         $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."' and p.pro_id = '".$insert_id."';");
@@ -60,19 +61,15 @@ class Project extends CI_Controller {
     public function detailled_project($id)
     {
         $data["project"] = $this->getProject($id);
-        $query_workers = $this->db->query("select u.use_mail, use_name, use_surname from user u
-                                            join belong_to b on u.use_mail = b.use_mail where b.pro_id = ".$id.";");
-        foreach($query_workers->result('User_model') as $user)
-            $workers[] = $user;
+        $workers = $this->getProjectWorker($id);
         $data["workers"] = $workers; 
-        $query_tasks = $this->db->query('select * from task where pro_id='.$id.';');
-        foreach($query_tasks->result('Task_model') as $task)
-            $tasks[] = $task;
+        $tasks = $this->getProjectTask($id);
         $data["tasks"] = $tasks;
-
+        $requirements = $this->getProjectRequirement($id);
+        $data["requirements"] = $requirements;
         $this->load->view('header');
         $this->load->view('side_bar');
-        $this->load->view('detailled_view',$data);
+        $this->load->view('projects',$data);
     }
 
     public function add_worker()
@@ -112,7 +109,6 @@ class Project extends CI_Controller {
         $task->pro_id = $data["pro_id"];
         $this->db->insert('task',$task);
         $this->index();
-
     }
 
     public function add_requirement($id) 
@@ -153,7 +149,6 @@ class Project extends CI_Controller {
 
     private function getProjectWorker($pro_id)
     {
-        
         $query_workers = $this->db->query("select u.use_mail, use_name, use_surname from user u
                                             join belong_to b on u.use_mail = b.use_mail where b.pro_id = ".$pro_id.";");
         foreach($query_workers->result('User_model') as $user)
