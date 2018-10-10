@@ -40,9 +40,22 @@ class Registration extends CI_Controller {
             $user = new User_model();
             $user->use_mail = $query->use_mail;
             $user->use_name = $query->use_name;
+            $_SESSION["use_name"] = $query->use_name;
             $user->use_surname = $query->use_surname;
             $_SESSION["user_connected"] = serialize($user);
+            $query = $this->db->query("select pro_id from belong_to where use_mail='".$data["use_mail"]."';")->row();
             $this->load->view('header');
+            $_SESSION["pro_id"] = $query->pro_id;
+            // TODO: query all projects names for header
+            $query = $this->db->query("select pro_name from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail='".$data["use_mail"]."';");
+            $names = array();
+            foreach ($query->result_array as $name) {
+                $names[] = $name;
+                echo $name;
+            }
+            $_SESSION["names"] = $names;
+            $_SESSION["use_mail"] = $data["use_mail"];
+            $this->load->view('side_bar');
         }
         else
         {
