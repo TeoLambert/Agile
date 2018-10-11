@@ -108,20 +108,15 @@ class Project extends CI_Controller {
         $this->detailled_project();
     }
 
-    public function task_deleted(){
-        $data = $this->input->post();
-        $tas_id = $data->tas_id;
+    public function task_deleted($tas_id){
         $this->db->where("tas_id",$tas_id);
         $this->db->delete("task");
         $this->detailled_project();
-        $this->load->view("registration_success");
     }
 
-    public function req_deleted(){
-        $data = $this->input->post();
-        $req_id = $data->req_id;
+    public function req_deleted($req_id){
         $this->db->where("req_id",$req_id);
-        $this->db->delete("requriement");
+        $this->db->delete("requirement");
         $this->detailled_project();
     }
 
