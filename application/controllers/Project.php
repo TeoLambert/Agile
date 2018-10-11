@@ -80,15 +80,14 @@ class Project extends CI_Controller {
                                          where not exists(
                                                             select 'X' from belong_to b
                                                             where b.use_mail='".$data["use_mail"]."' AND b.pro_id=".$_SESSION["pro_id"].") AND u.use_mail='".$data["use_mail"]."';");
-        if($check_query->result_id->num_rows == 0)
+        if($check_query->result_id->num_rows <= 1)
         {
             $belong = array("pro_id" => $_SESSION["pro_id"], "use_mail" => $data["use_mail"]);
             $this->db->insert('belong_to',$belong);
-            $this->detailled_project($_SESSION["pro_id"]);
+            $this->detailled_project();
         }
         else
         {
-            $this->detailled_project($_SESSION["pro_id"]);
             $this->load->view('errors/cli/cant_add_user');
         }
     }
