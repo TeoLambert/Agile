@@ -109,6 +109,8 @@ class Project extends CI_Controller {
         $task = new Task_model();
         $task->tas_name= $data["tas_name"];
         $task->tas_progress = $data["tas_progress"];
+        $task->tas_priority = $data["tas_priority"]
+        $task->tas_deadline = $data["tas_deadline"]
         $task->tas_desc = "None";
         $task->pro_id = $_SESSION["pro_id"];
         $this->db->insert('task',$task);
