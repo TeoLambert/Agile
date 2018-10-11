@@ -41,7 +41,7 @@ class Registration extends CI_Controller {
             $user->use_name = $query->use_name;
             $_SESSION["use_name"] = $query->use_name;
             $user->use_surname = $query->use_surname;
-            $_SESSION["user_connected"] = serialize($user);
+            $_SESSION["use_mail"] = $query->use_mail;
             $query = $this->db->query("select pro_id from belong_to where use_mail='".$data["use_mail"]."';")->row();
             $this->load->view('header');
             $_SESSION["pro_id"] = $query->pro_id;

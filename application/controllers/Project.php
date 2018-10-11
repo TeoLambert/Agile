@@ -73,6 +73,20 @@ class Project extends CI_Controller {
         $this->load->view('projects',$data);
     }
 
+    public function detailled_task()
+    {
+        $use_mail = $_SESSION["use_mail"];
+        $query_tasks = $this->db->query('select * from task where use_mail="'.$use_mail.'";');
+        foreach($query_tasks->result('Task_model') as $task)
+                $tasks[] = $task;
+        $data["tasks"] = $tasks;
+        $workers = $this->getProjectWorker($_SESSION["pro_id"]);
+        $data["workers"] = $workers; 
+        $this->load->view('header');
+        $this->load->view('side_bar');
+        $this->load->view('tasks',$data);
+    }
+
     public function add_worker()
     {
         $data = $this->input->post();
@@ -116,6 +130,16 @@ class Project extends CI_Controller {
         $this->db->where("tas_id",$tas_id);
         $this->db->delete("task");
         $this->detailled_project();
+    }
+
+    public function update_taskProgress($tas_id){
+        $data = $this->input->post();
+        $array = array(
+            'tas_progress' => $data["tas_progress"],
+         );
+        $this->db->where('tas_id', $tas_id);
+        $this->db->update('task', $array); 
+        $this->detailled_task();
     }
 
     
