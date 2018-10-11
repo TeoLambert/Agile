@@ -81,8 +81,10 @@
                                                                 <i class="fas fa-edit"></i>
                                                             </button>
                                                         </td>
+                                                        <form action="<?=base_url()?>/Project/req_deleted" method="POST">
+                                                            <input type="hidden" value="<?= $requirement->req_id ?>">
                                                         <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
-                                                    </tr>
+                                                        </form>                                                    </tr>
                                                     <?php }?>
                                             </tbody>
                                         </table>
@@ -239,7 +241,10 @@
                                                                 <i class="fas fa-edit"></i>
                                                             </button>
                                                         </td>
+                                                        <form action="<?=base_url()?>/Project/task_deleted" method="POST">
+                                                            <input type="hidden" value="<?= $task->tas_id ?>">
                                                         <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
+                                                        </form>
                                                     </tr>
                                                     <?php }
                                              ?>

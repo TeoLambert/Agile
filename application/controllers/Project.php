@@ -108,6 +108,13 @@ class Project extends CI_Controller {
         $this->detailled_project();
     }
 
+    public function task_deleted(){
+
+    }
+
+    public function req_deleted(){
+        
+    }
 
     public function requirement_added(){
         $data = $this->input->post();
@@ -148,7 +155,6 @@ class Project extends CI_Controller {
         $task->tas_desc = $query->tas_desc;
         $task->pro_id = $query->pro_id;
         return $task;
-
     }
 
     private function getProjectWorker($pro_id)
