@@ -82,7 +82,7 @@
                                                             </button>
                                                         </td>
                                                         <form action="<?=base_url()?>/Project/req_deleted" method="POST">
-                                                            <input type="hidden" value="<?= $requirement->req_id ?>">
+                                                            <input name="req_id" type="hidden" value="<?= $requirement->req_id ?>">
                                                         <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
                                                         </form>                                                    </tr>
                                                     <?php }?>
@@ -242,7 +242,7 @@
                                                             </button>
                                                         </td>
                                                         <form action="<?=base_url()?>/Project/task_deleted" method="POST">
-                                                            <input type="hidden" value="<?= $task->tas_id ?>">
+                                                            <input name = "tas_id" type="hidden" value="<?= $task->tas_id ?>">
                                                         <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
                                                         </form>
                                                     </tr>
