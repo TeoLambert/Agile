@@ -66,7 +66,7 @@ class Project extends CI_Controller {
         $query_reqs = $this->db->query('select * from requirement where pro_id='.$id.';');
             foreach($query_reqs->result('Requirement_model') as $req)
                 $reqs[] = $req;
-            $data["tasks"] = $reqs;
+            $data["requirements"] = $reqs;
 
         $this->load->view('header');
         $this->load->view('side_bar');

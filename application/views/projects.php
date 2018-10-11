@@ -69,15 +69,12 @@
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            if ($requirements = isset($variable)) {
                                                 foreach($requirements as $requirement) { ?>                          
                                                     <tr>
-                                                        <td> <?= $requirement->tas_name?> </td>
-                                                        <!-- TODO: requirement of people-->
-                                                        <td> Willford </td>
-                                                        <td> <?= $requirement->tas_progress ?> </td>
-                                                        <td> <?= $requirement->tas_priority ?> </td>
-                                                        <td> <?= $requirement->tas_deadline ?> </td>
+                                                        <td> <?= $requirement->req_name ?> </td>
+                                                        <td> <?= $requirement->req_priority ?> </td>
+                                                        <td> <?= $requirement->req_estimate ?> </td>
+                                                        <td> <?= $requirement->req_deadline ?> </td>
                                                         <td>
                                                             <!-- TODO: edit and delete requirement-->
                                                             <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#editRequirementModal">
@@ -86,10 +83,7 @@
                                                         </td>
                                                         <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
                                                     </tr>
-                                                    <?php }
-                                            }
-                                            else{
-                                                } ?>
+                                                    <?php }?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -275,6 +269,7 @@
                                                             <div class="col-lg-6">
                                                                 <label for="Progress"> Progress: </label>
                                                                 <select name="tas_progress" class="form-control" id="Progress" required>
+                                                                    <option value="Todo"> Todo </option>
                                                                     <option value="Done"> Done </option>
                                                                     <option value="Ongoing"> Ongoing </option>
                                                                 </select>
@@ -376,22 +371,14 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                if ($req = isset($variable)) {
+                                                
                                                 foreach($workers as $worker) { ?>                          
                                                     <tr>
-                                                        <td> <?= $worker->tas_name?> </td>
+                                                        <td> <?= $worker->use_name?> </td>
                                                         <!-- TODO: worker of people-->
-                                                        <td> Willford </td>
-                                                        <td> <?= $worker->tas_progress ?> </td>
-                                                        <td> <?= $worker->tas_priority ?> </td>
-                                                        <td> <?= $worker->tas_deadline ?> </td>
-                                                        <td>
-                                                        
+                                                        <td> <?= $worker->use_mail ?> </td> 
                                                     </tr>
-                                                    <?php }
-                                            }
-                                            else{
-                                                } ?>
+                                                    <?php }?>
                                             </tbody>
                                         </table>
                                     </div>
