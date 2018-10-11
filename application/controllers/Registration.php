@@ -19,7 +19,6 @@ class Registration extends CI_Controller {
             $this->session->sess_destroy();
             $this->load->view('header');
             $this->load->view('login');
-            $this->load->view('registration_success');
         }
         else
         {

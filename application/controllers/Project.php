@@ -115,7 +115,6 @@ class Project extends CI_Controller {
         $this->db->delete("task");
         $this->detailled_project();
         $this->load->view("registration_success");
-
     }
 
     public function req_deleted(){
@@ -124,7 +123,6 @@ class Project extends CI_Controller {
         $this->db->where("req_id",$req_id);
         $this->db->delete("requriement");
         $this->detailled_project();
-        $this->load->view("registration_success");
     }
 
     public function requirement_added(){
@@ -136,8 +134,7 @@ class Project extends CI_Controller {
         $req->req_priority = $data["req_priority"];
         $req->pro_id = $_SESSION["pro_id"];
         $this->db->insert('requirement',$req);
-        //$this->detailled_project();
-        $this->load->view('registration_success');
+        $this->detailled_project();
     }
 
     private function getProject($id)
