@@ -11,22 +11,14 @@ class Project extends CI_Controller {
         $this->load->model('Requirement_model');
     }
 
-    public function index($insert_id)
+    public function index($pro_id)
     {
         $mail = unserialize($_SESSION["user_connected"])->use_mail;
-        $name_and_id = array();
-        $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."';");
-        
-        foreach($query->result("Project_model") as $project){
-            $name_and_id["pro_name"] = $project->pro_name;
-            $name_and_id["pro_id"] = $project->pro_id;
-        }
         $data["projects"] = $name_and_id;
         $this->load->view('header',$data);
-        $id["pro_id"] = $insert_id;
         $this->load->view('side_bar');
 
-        $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."' and p.pro_id = '".$insert_id."';");
+        $query = $this->db->query("select p.* from project p join belong_to b on p.pro_id = b.pro_id where b.use_mail ='".$mail."' and p.pro_id = '".$pro_id."';");
         $spec_proj["project"] = $query->result("Project_model");
         $this->load->view('projects',$spec_proj);
     }
@@ -55,6 +47,7 @@ class Project extends CI_Controller {
                         "use_mail" => unserialize($_SESSION["user_connected"])->use_mail
     );
         $this->db->insert("belong_to",$belong);
+        $_SESSION["pro_id"] = $insert_id;
         $this->index($insert_id);
     }
 
@@ -63,10 +56,20 @@ class Project extends CI_Controller {
         $data["project"] = $this->getProject($id);
         $workers = $this->getProjectWorker($id);
         $data["workers"] = $workers; 
-        $tasks = $this->getProjectTask($id);
-        $data["tasks"] = $tasks;
-        $requirements = $this->getProjectRequirement($id);
-        $data["requirements"] = $requirements;
+
+        $query_tasks = $this->db->query('select * from task where pro_id='.$id.';');
+        if ($tasks = isset($variable)) {
+            foreach($query_tasks->result('Task_model') as $task)
+                $tasks[] = $task;
+            $data["tasks"] = $tasks;
+        }
+        
+        $query_reqs = $this->db->query('select * from requirement where pro_id='.$id.';');
+        if ($reqs = isset($variable)) {
+            foreach($query_reqs->result('Requirement_model') as $req)
+                $reqs[] = $req;
+            $data["tasks"] = $reqs;
+        }
         $this->load->view('header');
         $this->load->view('side_bar');
         $this->load->view('projects',$data);
@@ -104,9 +107,9 @@ class Project extends CI_Controller {
         $data = $this->input->post();
         $task = new Task_model();
         $task->tas_name= $data["tas_name"];
-        $task->tas_deadline = $data["tas_deadline"];
-        $task->tas_desc = $data["tas_desc"];
-        $task->pro_id = $data["pro_id"];
+        $task->tas_progress = $data["tas_progress"];
+        $task->tas_desc = "None";
+        $task->pro_id = $_SESSION["pro_id"];
         $this->db->insert('task',$task);
         $this->index();
     }
@@ -116,6 +119,10 @@ class Project extends CI_Controller {
         $data["task"] = $this->getTask($id);
         $this->load->view('header');
         $this->load->view('add_requirement',$data);
+    }
+
+    public function requirement_added(){
+        
     }
 
     private function getProject($id)

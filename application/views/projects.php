@@ -1,7 +1,7 @@
 <div class="col-lg-9">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="text-info text-center"><?= $project[0]->pro_name?></h4>
+                        <h4 class="text-info text-center"><?= $project->pro_name?></h4>
                         <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-controls="nav-description" aria-selected="true"> Description </a>
@@ -16,25 +16,25 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <p> <b> Customer Name: </b><?=$project[0]->pro_customer?> </p> 
+                                                <p> <b> Customer Name: </b><?=$project->pro_customer?> </p> 
                                             </div>
                                             <div class="col-lg-6">
-                                                <p> <b> Customer Phone: </b><?=$project[0]->pro_customer_tel?></p> 
+                                                <p> <b> Customer Phone: </b><?=$project->pro_customer_tel?></p> 
                                             </div>
                                         </div>
         
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <p> <b> Customer E-mail: </b><?=$project[0]->pro_customer_mail?></p>
+                                                <p> <b> Customer E-mail: </b><?=$project->pro_customer_mail?></p>
                                             </div>
                                             <div class="col-lg-6">
-                                                <p> <b> Project Deadline: </b><?= $project[0]->pro_deadline?></p> 
+                                                <p> <b> Project Deadline: </b><?= $project->pro_deadline?></p> 
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <p class="text-justify"> <b> Project Description: </b>
-                                                <?=$project[0]->pro_desc?>
+                                                <?=$project->pro_desc?>
                                                 </p>
                                             </div>
                                         </div>
@@ -68,15 +68,28 @@
                                                 <th> Delete </th>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td> Tast A </td>
-                                                    <td> High </td>
-                                                    <td> 2 Days </td>
-                                                    <td> 12-12-2018 </td>
-                                                    <td> <a class="bth btn-sm btn-outline-warning" data-toggle="modal" data-target="#editRequirementModal" href=""> <i class="fas fa-edit"></i> </a> </td>
-                                                    <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
-                                                </tr>
-                                            
+                                            <?php 
+                                            if ($requirements = isset($variable)) {
+                                                foreach($requirements as $requirement) { ?>                          
+                                                    <tr>
+                                                        <td> <?= $requirement->tas_name?> </td>
+                                                        <!-- TODO: requirement of people-->
+                                                        <td> Willford </td>
+                                                        <td> <?= $requirement->tas_progress ?> </td>
+                                                        <td> <?= $requirement->tas_priority ?> </td>
+                                                        <td> <?= $requirement->tas_deadline ?> </td>
+                                                        <td>
+                                                            <!-- TODO: edit and delete requirement-->
+                                                            <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#editRequirementModal">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
+                                                    </tr>
+                                                    <?php }
+                                            }
+                                            else{
+                                                } ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -215,22 +228,28 @@
                                                 <th> Delete </th>
                                             </thead>
                                             <tbody>
-                                            <?php foreach($tasks as $task) { ?>                          
-                                                <tr>
-                                                    <td> <?= $task->tas_name ?> </td>
-                                                    <td> Willford </td>
-                                                    <td> <?= $task->tas_progress ?> </td>
-                                                    <td> <?= $task->tas_priority ?> </td>
-                                                    <td> <?= $task->tas_deadline ?> </td>
-                                                    <td>
-                                                        <!-- TODO: edit and delete task-->
-                                                        <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#editTaskModal">
-                                                            <i class="fas fa-edit"></i>
-                                                        </button>
-                                                    </td>
-                                                    <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
-                                                </tr>
-                                                <?php } ?>
+                                            <?php 
+                                            if ($task = isset($variable)) {
+                                                foreach($tasks as $task) { ?>                          
+                                                    <tr>
+                                                        <td> <?= $task->tas_name?> </td>
+                                                        <!-- TODO: task of people-->
+                                                        <td> Willford </td>
+                                                        <td> <?= $task->tas_progress ?> </td>
+                                                        <td> <?= $task->tas_priority ?> </td>
+                                                        <td> <?= $task->tas_deadline ?> </td>
+                                                        <td>
+                                                            <!-- TODO: edit and delete task-->
+                                                            <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#editTaskModal">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
+                                                    </tr>
+                                                    <?php }
+                                            }
+                                            else{
+                                                } ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -357,14 +376,23 @@
                                                 <th> E-mail </th>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td> Willford </td>
-                                                    <td> willford@gmail.com </td>
-                                                </tr>
-                                                <tr>
-                                                    <td> Teo Lambert </td>
-                                                    <td> teo@gmail.com </td>
-                                                </tr>
+                                                <?php
+                                                if ($req = isset($variable)) {
+                                                foreach($workers as $worker) { ?>                          
+                                                    <tr>
+                                                        <td> <?= $worker->tas_name?> </td>
+                                                        <!-- TODO: worker of people-->
+                                                        <td> Willford </td>
+                                                        <td> <?= $worker->tas_progress ?> </td>
+                                                        <td> <?= $worker->tas_priority ?> </td>
+                                                        <td> <?= $worker->tas_deadline ?> </td>
+                                                        <td>
+                                                        
+                                                    </tr>
+                                                    <?php }
+                                            }
+                                            else{
+                                                } ?>
                                             </tbody>
                                         </table>
                                     </div>
