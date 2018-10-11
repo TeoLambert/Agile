@@ -9,6 +9,7 @@ class Task_model extends CI_Model {
     public $tas_progress;
     public $tas_priority;
     public $pro_id;
+    public $use_mail;
 
     public function __construct()
     {

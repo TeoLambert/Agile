@@ -229,7 +229,12 @@
                                                     <tr>
                                                         <td> <?= $task->tas_name?> </td>
                                                         <!-- TODO: task of people-->
-                                                        <td> Willford </td>
+                                                        <td>
+                                                             <?php foreach($workers as $worker) {
+                                                                 if ($worker->use_mail == $task->use_mail) {
+                                                                     echo $worker->use_name;
+                                                                 } ?>
+                                                            <?php }?>
                                                         <td> <?= $task->tas_progress ?> </td>
                                                         <td> <?= $task->tas_priority ?> </td>
                                                         <td> <?= $task->tas_deadline ?> </td>
@@ -285,8 +290,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="for-group">
-                                                        <label for="deadline"> Deadline: </label>
-                                                        <input type="date" name="tas_deadline" id="deadline" class="form-control" required>
+                                                        <!-- TODO: align the 2 select-->
+                                                        <div class="col-lg-6">
+                                                            <label for="deadline"> Deadline: </label>
+                                                            <input type="date" name="tas_deadline" id="deadline" class="form-control" required>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                                <label for="People"> People: </label>
+                                                                <select name="use_mail" class="form-control" id="People">
+                                                                <?php
+                                                                    foreach($workers as $worker) { ?>                          
+                                                                        <option value="<?= $worker->use_mail ?>"><?= $worker->use_name?> </option>
+                                                                <?php }?>
+                                                                </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

@@ -103,6 +103,7 @@ class Project extends CI_Controller {
         $task->tas_deadline = $data["tas_deadline"];
         $task->tas_desc = "None";
         $task->pro_id = $_SESSION["pro_id"];
+        $task->use_mail = $data["use_mail"];
         $this->db->insert('task',$task);
         $this->detailled_project();
     }
