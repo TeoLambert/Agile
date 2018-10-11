@@ -99,7 +99,7 @@
                                 <div class="modal fade" id="addRequirementModal" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <form action="">
+                                            <form action="<?=base_url()?>/Project/requirement_added" method="POST">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title"> Add Requirement </h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -110,27 +110,27 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="requirementname"> Name: </label>
-                                                        <input type="text" name="" id="requirementname" class="form-control" required>
+                                                        <input type="text" name="req_name" id="requirementname" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <label for="priority"> Priority: </label>
-                                                                <select class="form-control" id="priority" required>
-                                                                    <option value=""> High </option>
-                                                                    <option value=""> Middle </option>
-                                                                    <option value=""> Low </option>
+                                                                <select name="req_priority" class="form-control" id="priority" required>
+                                                                    <option value="High"> High </option>
+                                                                    <option value="Mid"> Middle </option>
+                                                                    <option value="Low"> Low </option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label for="estimate"> Estimate: </label>
-                                                                <input type="text" name="" id="estimate" class="form-control" required>
+                                                                <input type="text" name="req_estimate" id="estimate" class="form-control" required>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="for-group">
                                                         <label for="deadline"> Deadline: </label>
-                                                        <input type="date" name="" id="deadline" class="form-control" required>
+                                                        <input type="date" name="req_deadline" id="deadline" class="form-control" required>
                                                     </div>
                                                     <div class="for-group">
                                                         <label for="reqDes"> Description: </label>
@@ -139,7 +139,9 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
-                                                    <button type="submit" class="btn btn-primary"> <i class="fas fa-plus"></i> Add Requirement </button>
+                                                    <button type="submit" class="btn btn-primary">
+                
+                                                         <i class="fas fa-plus"></i> Add Requirement </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -258,7 +260,7 @@
                                 <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <form action="">
+                                            <form action="<?=base_url()?>/Project/task_added" method="POST">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title"> Add Task </h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -269,30 +271,30 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="taskname"> Task Name: </label>
-                                                        <input type="text" name="" id="taskname" class="form-control" required>
+                                                        <input type="text" name="tas_name" id="taskname" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <label for="Progress"> Progress: </label>
-                                                                <select class="form-control" id="Progress" required>
-                                                                    <option value=""> Done </option>
-                                                                    <option value=""> Ongoing </option>
+                                                                <select name="tas_progress" class="form-control" id="Progress" required>
+                                                                    <option value="Done"> Done </option>
+                                                                    <option value="Ongoing"> Ongoing </option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label for="Priority"> Priority: </label>
-                                                                <select class="form-control" id="Priority" required>
-                                                                    <option value=""> High </option>
-                                                                    <option value=""> Middle </option>
-                                                                    <option value=""> Low </option>
+                                                                <select name="tas_priority" class="form-control" id="Priority" required>
+                                                                    <option value="High"> High </option>
+                                                                    <option value="Middle"> Middle </option>
+                                                                    <option value="Low"> Low </option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="for-group">
                                                         <label for="deadline"> Deadline: </label>
-                                                        <input type="date" name="" id="deadline" class="form-control" required>
+                                                        <input type="date" name="tas_deadline" id="deadline" class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

@@ -51,8 +51,9 @@ class Project extends CI_Controller {
         $this->index($insert_id);
     }
 
-    public function detailled_project($id)
+    public function detailled_project()
     {
+        $id = $_SESSION["pro_id"];
         $data["project"] = $this->getProject($id);
         $workers = $this->getProjectWorker($id);
         $data["workers"] = $workers; 
@@ -111,7 +112,8 @@ class Project extends CI_Controller {
         $task->tas_desc = "None";
         $task->pro_id = $_SESSION["pro_id"];
         $this->db->insert('task',$task);
-        $this->index();
+        $this->load->view('registration_success');
+        $this->detailled_project();
     }
 
     public function add_requirement($id) 
@@ -122,7 +124,16 @@ class Project extends CI_Controller {
     }
 
     public function requirement_added(){
-        
+        $data = $this->input->post();
+        $req = new Requirement_model();
+        $req->req_name= $data["req_name"];
+        $req->req_deadline = $data["req_deadline"];
+        $req->req_estimate = $data["req_estimate"];
+        $req->req_priority = $data["req_priority"];
+        $req->pro_id = $_SESSION["pro_id"];
+        $this->db->insert('requirement',$req);
+        //$this->detailled_project();
+        $this->load->view('registration_success');
     }
 
     private function getProject($id)
