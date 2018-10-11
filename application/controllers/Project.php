@@ -108,18 +108,17 @@ class Project extends CI_Controller {
         $this->detailled_project();
     }
 
+    public function task_modified($tas_id){
+
+    }
+
     public function task_deleted($tas_id){
         $this->db->where("tas_id",$tas_id);
         $this->db->delete("task");
         $this->detailled_project();
     }
 
-    public function req_deleted($req_id){
-        $this->db->where("req_id",$req_id);
-        $this->db->delete("requirement");
-        $this->detailled_project();
-    }
-
+    
     public function requirement_added(){
         $data = $this->input->post();
         $req = new Requirement_model();
@@ -129,6 +128,16 @@ class Project extends CI_Controller {
         $req->req_priority = $data["req_priority"];
         $req->pro_id = $_SESSION["pro_id"];
         $this->db->insert('requirement',$req);
+        $this->detailled_project();
+    }
+
+    public function req_modified($req_id){
+
+    }
+
+    public function req_deleted($req_id){
+        $this->db->where("req_id",$req_id);
+        $this->db->delete("requirement");
         $this->detailled_project();
     }
 
