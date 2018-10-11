@@ -34,13 +34,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {?>
                     <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                     project 1
-                                </a>
+                        <?php
+                            // TODO: spec project names
+                        ?>
+                                <?foreach ($_SESSION["names"] as $name {?>
+                                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <? print_r($_SESSION["names"]);?>
+                                        </a>
+                                <?}?>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#"> project 2 </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="index.html"> Create project </a>
+                                    <a class="dropdown-item" href="<?=base_url()?>Project/new_project"> Create project </a>
                                 </div>
                             </li>
                     </ul>
@@ -50,7 +54,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="dropdownMenunotify" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell"></i>  <sup> <span class="badge badge-danger"> 5 </span> </sup>
-                                    <!-- TODO: fix the icon bug-->
                                 </a>
                                         
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenunotify">
@@ -64,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-user"></i> Teo Lambert
+                                    <i class="fas fa-user"></i> <?= $_SESSION["use_name"]?>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="#"> User Profile </a>
@@ -78,7 +81,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
                 else
                 { ?>
-                <!-- TODO: modify the create account and login btn-->
                 <ul class="navbar-nav ml-auto">
                     <li class="navbar-item">
                         <a class="nav-link" href="<?=base_url()?>Registration/account_creation"> Create an account </a>
