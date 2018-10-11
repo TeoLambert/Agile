@@ -59,18 +59,15 @@ class Project extends CI_Controller {
         $data["workers"] = $workers; 
 
         $query_tasks = $this->db->query('select * from task where pro_id='.$id.';');
-        if ($tasks = isset($variable)) {
             foreach($query_tasks->result('Task_model') as $task)
                 $tasks[] = $task;
             $data["tasks"] = $tasks;
-        }
         
         $query_reqs = $this->db->query('select * from requirement where pro_id='.$id.';');
-        if ($reqs = isset($variable)) {
             foreach($query_reqs->result('Requirement_model') as $req)
                 $reqs[] = $req;
             $data["tasks"] = $reqs;
-        }
+
         $this->load->view('header');
         $this->load->view('side_bar');
         $this->load->view('projects',$data);
@@ -82,26 +79,20 @@ class Project extends CI_Controller {
         $check_query = $this->db->query("select 'X' from user u
                                          where not exists(
                                                             select 'X' from belong_to b
-                                                            where b.use_mail='".$data["use_mail"]."' AND b.pro_id=".$data["pro_id"].") AND u.use_mail='".$data["use_mail"]."';");
-        if($check_query->result_id->num_rows >= 1)
+                                                            where b.use_mail='".$data["use_mail"]."' AND b.pro_id=".$_SESSION["pro_id"].") AND u.use_mail='".$data["use_mail"]."';");
+        if($check_query->result_id->num_rows == 0)
         {
-            $belong = array("pro_id" => $data["pro_id"], "use_mail" => $data["use_mail"]);
+            $belong = array("pro_id" => $_SESSION["pro_id"], "use_mail" => $data["use_mail"]);
             $this->db->insert('belong_to',$belong);
-            $this->detailled_project($data["pro_id"]);
+            $this->detailled_project($_SESSION["pro_id"]);
         }
         else
         {
-            $this->detailled_project($data["pro_id"]);
+            $this->detailled_project($_SESSION["pro_id"]);
             $this->load->view('errors/cli/cant_add_user');
         }
     }
 
-    public function add_task($id)
-    {
-        $data["project"] = $this->getProject($id);
-        $this->load->view('header');
-        $this->load->view('add_task',$data);
-    }
 
     public function task_added()
     {
@@ -109,21 +100,14 @@ class Project extends CI_Controller {
         $task = new Task_model();
         $task->tas_name= $data["tas_name"];
         $task->tas_progress = $data["tas_progress"];
-        $task->tas_priority = $data["tas_priority"]
-        $task->tas_deadline = $data["tas_deadline"]
+        $task->tas_priority = $data["tas_priority"];
+        $task->tas_deadline = $data["tas_deadline"];
         $task->tas_desc = "None";
         $task->pro_id = $_SESSION["pro_id"];
         $this->db->insert('task',$task);
-        $this->load->view('registration_success');
         $this->detailled_project();
     }
 
-    public function add_requirement($id) 
-    {
-        $data["task"] = $this->getTask($id);
-        $this->load->view('header');
-        $this->load->view('add_requirement',$data);
-    }
 
     public function requirement_added(){
         $data = $this->input->post();

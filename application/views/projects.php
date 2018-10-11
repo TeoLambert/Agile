@@ -231,7 +231,6 @@
                                             </thead>
                                             <tbody>
                                             <?php 
-                                            if ($task = isset($variable)) {
                                                 foreach($tasks as $task) { ?>                          
                                                     <tr>
                                                         <td> <?= $task->tas_name?> </td>
@@ -249,9 +248,7 @@
                                                         <td> <a class="bth btn-sm btn-outline-danger" href=""> <i class="fas fa-trash-alt"></i> </a> </td>
                                                     </tr>
                                                     <?php }
-                                            }
-                                            else{
-                                                } ?>
+                                             ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -404,7 +401,7 @@
                                 <div class="modal fade" id="addPeopleModal" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <form action="">
+                                            <form action="<?=base_url()?>/Project/add_worker" method="POST">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title"> Add People </h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -414,11 +411,7 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label for="email"> E-mail </label>
-                                                        <select class="form-control" id="email" required>
-                                                            <option> willford@gmail.com </option>
-                                                            <option> teo@gmail.com </option>
-                                                            <option> example@gmail.com </option>
-                                                        </select>
+                                                        <input type="email" name="use_mail">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
